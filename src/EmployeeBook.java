@@ -38,6 +38,8 @@ public class EmployeeBook {
         for (int i = 0; i < employeesArr.length; i++) {
             if (employeesArr[i] != null) {
                 System.out.println(employeesArr[i]);
+            } else {
+                System.out.println("Employee at index " + i + " is null");
             }
         }
     }
@@ -80,19 +82,17 @@ public class EmployeeBook {
     }
 
     public Employee minimalEmployeeSalary() {
-        Employee minimalSalaryEmployeer = employeesArr[0];
+        Employee minimalSalaryEmployeer = findFirstNonNullEmployee();
         for (int i = 0; i < employeesArr.length; i++) {
             if (employeesArr[i] != null && employeesArr[i].getSalary() < minimalSalaryEmployeer.getSalary()) {
                 minimalSalaryEmployeer = employeesArr[i];
             }
         }
         return minimalSalaryEmployeer;
-
     }
 
-
     public Employee maximalEmployeeSalary() {
-        Employee maximalSalaryEmployeer = employeesArr[0];
+        Employee maximalSalaryEmployeer = findFirstNonNullEmployee();
         for (int i = 0; i < employeesArr.length; i++) {
             if (employeesArr[i] != null && employeesArr[i].getSalary() > maximalSalaryEmployeer.getSalary()) {
                 maximalSalaryEmployeer = employeesArr[i];
@@ -100,7 +100,14 @@ public class EmployeeBook {
         }
         return maximalSalaryEmployeer;
     }
-
+    private Employee findFirstNonNullEmployee() {
+        for (Employee employee : employeesArr) {
+            if (employee != null) {
+                return employee;
+            }
+        }
+        return null;
+    }
 
     public void increaseSalary(int increment) {
         int i = 0;
@@ -228,7 +235,6 @@ public class EmployeeBook {
 
         return (double) sum / numberOfEmployees;
     }
-
 
     public void printEachDepartmentEpmloyees() {
         for (int department = 1; department <= 5; department++) {

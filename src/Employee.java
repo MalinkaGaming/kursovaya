@@ -14,7 +14,6 @@ public class Employee {
             throw new IllegalArgumentException("Отдел должен быть от 1 до 5");
         }
     }
-
     public String getFullname() {
         return fullname;
     }
