@@ -24,8 +24,11 @@ public class EmployeeBook {
 
     public void removeEmployeeId(int id) {
         for (int i = 0; i < employeesArr.length; i++) {
-            if (employeesArr[i].getId() == id) {
-                employeesArr[i] = null;
+            if (employeesArr[i] != null && employeesArr[i].getId() == id) {
+                for (int j = i; j < employeesArr.length - 1; j++) {
+                    employeesArr[j] = employeesArr[j + 1];
+                }
+                employeesArr[employeesArr.length - 1] = null;
                 break;
             }
         }
@@ -41,26 +44,37 @@ public class EmployeeBook {
 
 
     public void printAllEmployeesName() {
-        for (int i = 0; i < employeesArr.length; i++) {
-            if (employeesArr[i] != null) {
-                System.out.println(employeesArr[i].getFullname());
+        System.out.println("Имена всех сотрудников:");
+        for (Employee employee : employeesArr) {
+            if (employee != null) {
+                System.out.println(employee.getFullname());
             }
         }
     }
 
     public double calcAverageSalary() {
         int sum = 0;
+        int numberOfEmployees = 0;
+
         for (Employee employee : employeesArr) {
-            sum += employee.getSalary();
+            if (employee != null) {
+                sum += employee.getSalary();
+                numberOfEmployees++;
+            }
         }
-        double averageSalary = sum / employeesArr.length;
+        if (numberOfEmployees == 0) {
+            return 0.0;
+        }
+        double averageSalary = (double) sum / numberOfEmployees;
         return averageSalary;
     }
 
     public int calcSalaryCosts() {
         int sum = 0;
-        for (int i = 0; i < employeesArr.length; i++) {
-            sum += employeesArr[i].getSalary();
+        for (Employee employee : employeesArr) {
+            if (employee != null) {
+                sum += employee.getSalary();
+            }
         }
         return sum;
     }
@@ -73,7 +87,9 @@ public class EmployeeBook {
             }
         }
         return minimalSalaryEmployeer;
+
     }
+
 
     public Employee maximalEmployeeSalary() {
         Employee maximalSalaryEmployeer = employeesArr[0];
@@ -154,6 +170,15 @@ public class EmployeeBook {
         }
     }
 
+    public void printIsSalaryBelow(int number) {
+        System.out.println("Сотрудники, чья зарплата ниже числа: ");
+        for (int i = 0; i < employeesArr.length; i++) {
+            if (employeesArr[i] != null && employeesArr[i].getSalary() < number) {
+                System.out.println(employeesArr[i].getId() + " " + employeesArr[i].getFullname() + " " + employeesArr[i].getSalary());
+            }
+        }
+    }
+
     public void printIsSalaryBigger(int number) {
         System.out.println("Сотрудники, чья зарплата ниже числа: ");
         for (int i = 0; i < employeesArr.length; i++) {
@@ -161,6 +186,7 @@ public class EmployeeBook {
                 System.out.println(employeesArr[i].getId() + " " + employeesArr[i].getFullname() + " " + employeesArr[i].getSalary());
             }
         }
+
         System.out.println();
         System.out.println("Сотрудники, чья зарплата выше или равна числу: ");
         for (int i = 0; i < employeesArr.length; i++) {
@@ -178,28 +204,37 @@ public class EmployeeBook {
         }
     }
 
-    public void changeEmployeeDepartment(String fullName, int newDepartment) {
-        for (int i = 0; i < employeesArr.length; i++) {
-            if (employeesArr[i].getFullname().equals(fullName)) {
-                employeesArr[i].setDepartment(newDepartment);
-            }
+    public void printAverageSalaryPerDepartment() {
+        for (int department = 1; department <= 5; department++) {
+            double averageSalary = calcAverageSalaryByDepartment(department);
+            System.out.println("Средняя зарплата в отделе " + department + ": " + averageSalary);
         }
     }
 
+    public double calcAverageSalaryByDepartment(int department) {
+        int sum = 0;
+        int numberOfEmployees = 0;
+
+        for (Employee employee : employeesArr) {
+            if (employee != null && employee.getDepartment() == department) {
+                sum += employee.getSalary();
+                numberOfEmployees++;
+            }
+        }
+
+        if (numberOfEmployees == 0) {
+            return 0.0;
+        }
+
+        return (double) sum / numberOfEmployees;
+    }
+
+
     public void printEachDepartmentEpmloyees() {
-        System.out.println("Сотрудники 1 отдела: ");
-        printDepartmentEmployeesNames(1);
-        System.out.println();
-        System.out.println("Сотрудники 2 отдела: ");
-        printDepartmentEmployeesNames(2);
-        System.out.println();
-        System.out.println("Сотрудники 3 отдела: ");
-        printDepartmentEmployeesNames(3);
-        System.out.println();
-        System.out.println("Сотрудники 4 отдела: ");
-        printDepartmentEmployeesNames(4);
-        System.out.println();
-        System.out.println("Сотрудники 5 отдела: ");
-        printDepartmentEmployeesNames(5);
+        for (int department = 1; department <= 5; department++) {
+            System.out.println("Сотрудники " + department + " отдела: ");
+            printDepartmentEmployeesNames(department);
+            System.out.println();
+        }
     }
 }

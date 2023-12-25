@@ -22,7 +22,7 @@ public class Main {
         System.out.println("Средняя зарплата составляет: " + employeeBook.calcAverageSalary());
         employeeBook.printAllEmployeesName();
 
-        employeeBook.increaseSalary(10);
+
         System.out.println("Сотрудник с минимальной зарплатой : " + employeeBook.getDepartmentMinSalaryEmployee(1));
         System.out.println("Сотрудник с максимальной зарплатой : " + employeeBook.getDepartmentMaxSalaryEmployee(2));
         System.out.println("Сумма затрат на зарплату по отделу: " + employeeBook.getCostDepartmentSalary(4));
@@ -31,6 +31,7 @@ public class Main {
         employeeBook.printIsSalaryBigger(30000);
         employeeBook.changeEmployeeSalary("Огурцова Лариса Ивановна", 39000);
         employeeBook.printEachDepartmentEpmloyees();
+        employeeBook.printAverageSalaryPerDepartment();
         employeeBook.removeEmployeeId(1);
 
     }
