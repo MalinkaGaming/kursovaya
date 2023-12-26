@@ -16,7 +16,6 @@ public class Main {
         employeeBook.printAllEmployeesName();
 
 
-
         System.out.println("Сотрудник с минимальной зарплатой: " + employeeBook.minimalEmployeeSalary());
         System.out.println("Сотрудник с максимальной зарплатой: " + employeeBook.maximalEmployeeSalary());
         System.out.println("Затраты на зарплаты: " + employeeBook.calcSalaryCosts());
